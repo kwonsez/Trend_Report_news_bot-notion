@@ -373,23 +373,30 @@ def run_job():
     print("=" * 50)
 
 def main():
-    print("뉴스 봇 대기 중... (매일 09:00 실행)")
+    print("뉴스 봇 시작...")
+    print("=" * 50)
     
-    # 테스트를 위해 즉시 실행
-    # run_job()
+    # 시작 시 즉시 1회 실행
+    print("초기 실행을 시작합니다.")
+    run_job()
+    
+    print("\n스케줄러 대기 중... (평일 매일 09:00 자동 실행)")
+    print("프로그램을 종료하려면 Ctrl+C를 누르세요.")
+    print("=" * 50)
 
+    # 평일 오전 9시 스케줄 등록
     schedule.every().monday.at("09:00").do(run_job)
     schedule.every().tuesday.at("09:00").do(run_job)
     schedule.every().wednesday.at("09:00").do(run_job)
     schedule.every().thursday.at("09:00").do(run_job)
     schedule.every().friday.at("09:00").do(run_job)
 
+    # 스케줄러 실행
     while True:
         schedule.run_pending()
         time.sleep(60)
 
 if __name__ == "__main__":
-    # main() # 스케줄러 실행
-    run_job() # 개발 중에는 즉시 실행하여 로직 확인
+    main()  # 즉시 실행 + 스케줄러 활성화
 
 
